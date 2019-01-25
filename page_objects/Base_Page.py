@@ -10,13 +10,13 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains 
-import unittest,time,logging,os,inspect,utils.Test_Rail
+import unittest,time,logging,os,inspect#,utils.Test_Rail
 from utils.Base_Logging import Base_Logging
 from inspect import getargspec
 from utils.BrowserStack_Library import BrowserStack_Library
 from .DriverFactory import DriverFactory
 from page_objects import PageFactory
-from utils.Test_Rail import Test_Rail
+#from utils.Test_Rail import Test_Rail
 from utils import Tesults
 from conf import remote_credentials as Conf
 
