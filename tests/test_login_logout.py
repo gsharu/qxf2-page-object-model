@@ -13,13 +13,14 @@ from utils.Option_Parser import Option_Parser
 import conf.login_logout_conf as conf
 
 
-def test_login_logout(base_url,browser,browser_version,os_version,os_name,browserstack_flag):
+def test_login_logout(base_url,browser,browser_version,os_version,os_name,remote_flag):
     "The login and logout test"
     #try:
     if True:
         expected_pass = 0
         actual_pass = -1
         test_obj = PageFactory.get_page_object("Login Page",base_url=base_url)
+        test_obj.register_driver(remote_flag,os_name,os_version,browser,browser_version,None,None)
         result_flag = test_obj.login(conf.USERNAME,conf.PASSWORD)
         test_obj.log_result(result_flag,
                             positive="Successfully logged into the application",
@@ -35,7 +36,7 @@ def test_login_logout(base_url,browser,browser_version,os_version,os_name,browse
 
 #---START OF SCRIPT
 if __name__=='__main__':
-    print "Start of %s"%__file__
+    print ("Start of %s"%__file__)
     #Creating an instance of the class
     options_obj = Option_Parser()
     options = options_obj.get_options()
@@ -47,7 +48,7 @@ if __name__=='__main__':
                         browser_version=options.browser_version,
                         os_version=options.os_version,
                         os_name=options.os_name,
-                        browserstack_flag=options.browserstack_flag) 
+                        remote_flag=options.remote_flag) 
     else:
-        print 'ERROR: Received incorrect comand line input arguments'
-        print option_obj.print_usage()
+        print ('ERROR: Received incorrect comand line input arguments')
+        print (option_obj.print_usage())
