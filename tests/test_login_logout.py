@@ -13,13 +13,18 @@ from utils.Option_Parser import Option_Parser
 import conf.login_logout_conf as conf
 
 
-def test_login_logout(base_url,browser,browser_version,os_version,os_name,browserstack_flag):
+def test_login_logout(base_url,browser,browser_version,os_version,os_name,remote_flag,testrail_flag,tesults_flag,test_run_id,remote_project_name,remote_build_name):
     "The login and logout test"
     #try:
     if True:
         expected_pass = 0
         actual_pass = -1
         test_obj = PageFactory.get_page_object("Login Page",base_url=base_url)
+
+        #2. Setup and register a driver
+        start_time = int(time.time())	#Set start_time with current time
+        test_obj.register_driver(remote_flag,os_name,os_version,browser,browser_version,remote_project_name,remote_build_name)
+
         result_flag = test_obj.login(conf.USERNAME,conf.PASSWORD)
         test_obj.log_result(result_flag,
                             positive="Successfully logged into the application",
@@ -35,7 +40,7 @@ def test_login_logout(base_url,browser,browser_version,os_version,os_name,browse
 
 #---START OF SCRIPT
 if __name__=='__main__':
-    print "Start of %s"%__file__
+    print("Start of %s"%__file__)
     #Creating an instance of the class
     options_obj = Option_Parser()
     options = options_obj.get_options()
@@ -43,11 +48,16 @@ if __name__=='__main__':
     #Run the test only if the options provided are valid
     if options_obj.check_options(options): 
         test_login_logout(base_url=options.url,
-                        browser=options.browser,
-                        browser_version=options.browser_version,
-                        os_version=options.os_version,
-                        os_name=options.os_name,
-                        browserstack_flag=options.browserstack_flag) 
+        browser=options.browser,
+        browser_version=options.browser_version,
+        os_version=options.os_version,
+        os_name=options.os_name,
+        remote_flag=options.remote_flag,
+        testrail_flag=options.testrail_flag,
+        tesults_flag=options.tesults_flag,
+        test_run_id=options.test_run_id,
+        remote_project_name=options.remote_project_name,
+        remote_build_name=options.remote_build_name)
     else:
-        print 'ERROR: Received incorrect comand line input arguments'
-        print option_obj.print_usage()
+        print('ERROR: Received incorrect comand line input arguments')
+        print(option_obj.print_usage())

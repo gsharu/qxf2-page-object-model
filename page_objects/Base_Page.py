@@ -10,13 +10,13 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains 
-import unittest,time,logging,os,inspect#,utils.Test_Rail
+import unittest,time,logging,os,inspect,utils.Test_Rail
 from utils.Base_Logging import Base_Logging
 from inspect import getargspec
 from utils.BrowserStack_Library import BrowserStack_Library
 from .DriverFactory import DriverFactory
 from page_objects import PageFactory
-#from utils.Test_Rail import Test_Rail
+from utils.Test_Rail import Test_Rail
 from utils import Tesults
 from conf import remote_credentials as Conf
 
@@ -94,7 +94,7 @@ class Base_Page(Borg,unittest.TestCase):
         self.set_log_file()
         self.driver = self.driver_obj.get_web_driver(remote_flag,os_name,os_version,browser,browser_version,remote_project_name,remote_build_name)
         self.driver.implicitly_wait(5) 
-        self.driver.maximize_window()
+        #self.driver.maximize_window()
         
         if Conf.REMOTE_BROWSER_PLATFORM == 'BS' and remote_flag.lower() == 'y':
             self.register_browserstack()

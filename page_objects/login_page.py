@@ -12,10 +12,14 @@ class Login_Page(Base_Page):
     SUBMIT_BUTTON = locators.SUBMIT_BUTTON
     LOGOUT_LINK = locators.LOGOUT_LINK 
 
+    def start(self):
+        "The login page"
+        url = "/"
+        self.open(url)
+
     def login(self, username, password):
-        "Login to the application"
-        result_flag = False 
-        result_flag = result_flag & self.set_username(username)
+        "Login to the application" 
+        result_flag = self.set_username(username)
         result_flag = result_flag & self.set_password(password)
         result_flag = result_flag & self.click_submit()
         #4. Verifies if login happened
