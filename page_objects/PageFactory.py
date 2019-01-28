@@ -7,6 +7,7 @@ Pages implemented so far:
 """
 
 from page_objects.login_page import Login_Page
+from page_objects.tutorials_page import Tutorials_Page
 
 class PageFactory():
     "PageFactory uses the factory design pattern."
@@ -16,10 +17,9 @@ class PageFactory():
         page_name = page_name.lower()
         if page_name == "login page" or page_name == "login":
             test_obj = Login_Page(base_url=base_url,trailing_slash_flag=trailing_slash_flag)
-        """
-        elif page_name == "bitcoin price page":
-            test_obj = Bitcoin_Price_Page()
-        """
+        elif page_name == "tutorials page" or page_name == "tutorial page" or page_name == "tutorials" or page_name == "tutorial":
+            test_obj = Tutorials_Page()
+
         return test_obj
 
     get_page_object = staticmethod(get_page_object)

@@ -23,7 +23,10 @@ class Login_Page(Base_Page):
         result_flag &= self.set_password(password)
         result_flag &= self.click_submit()
         #Verifies if login happened
-        result_flag &= self.check_element_present(self.LOGOUT_LINK)
+        logout_link_present = self.check_element_present(self.LOGOUT_LINK)  
+        result_flag &= logout_link_present
+        if logout_link_present:
+            self.switch_page('Tutorials page')
 
         return result_flag
 

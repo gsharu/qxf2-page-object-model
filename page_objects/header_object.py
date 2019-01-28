@@ -1,30 +1,27 @@
 """
-This class models the Qxf2.com header as a Page Object.
-The header consists of the Qxf2 logo, Qxf2 tag-line and the hamburger menu
-Since the hanburger menu is complex, we will model it as a separate object  
+This class models the Qxf2 Trainer's header as a Page Object.
 """
 from .Base_Page import Base_Page
-from .hamburger_menu_object import Hamburger_Menu_Object
 import conf.locators_conf as locators
 from utils.Wrapit import Wrapit
 
 
-class Header_Object(Hamburger_Menu_Object):
+class Header_Object():
     "Page Object for the header class"
 
     #locators
-    qxf2_logo = locators.qxf2_logo
-    qxf2_tagline_part1 = locators.qxf2_tagline_part1
-    qxf2_tagline_part2 = locators.qxf2_tagline_part2
+    LOGOUT_LINK = locators.LOGOUT_LINK
+    USERNAME = locators.USERNAME
 
     @Wrapit._exceptionHandler
-    def check_logo_present(self):
-        "Check if a logo is present"
-        return self.check_element_present(self.qxf2_logo)
+    @Wrapit._screenshot
+    def logout(self):
+        "Click on the logout link"
+        result_flag = self.click_element(self.LOGOUT_LINK)
+        self.conditional_write(result_flag,
+        positive='Clicked on the logout link',
+        negative='Could not click on the logout link',
+        level='debug')
+        result_flag &= self.check_element_present(self.USERNAME)
 
-    @Wrapit._exceptionHandler
-    def check_tagline_present(self):
-        "Check if the tagline is present"
-        return self.check_element_present(self.qxf2_tagline_part1) and self.check_element_present(self.qxf2_tagline_part2)
-
-    
+        return result_flag
