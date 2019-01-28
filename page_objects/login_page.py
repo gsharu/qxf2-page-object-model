@@ -20,25 +20,42 @@ class Login_Page(Base_Page):
     def login(self, username, password):
         "Login to the application" 
         result_flag = self.set_username(username)
-        result_flag = result_flag & self.set_password(password)
-        result_flag = result_flag & self.click_submit()
-        #4. Verifies if login happened
+        result_flag &= self.set_password(password)
+        result_flag &= self.click_submit()
+        #Verifies if login happened
+        result_flag &= self.check_element_present(self.LOGOUT_LINK)
+
         return result_flag
 
+    @Wrapit._screenshot
     def set_username(self,username):
         "Set the username field"
         result_flag = self.set_text(self.USERNAME,username)
         self.conditional_write(result_flag,
         positive='Set the username field to: %s'%username,
-        negative='Failed to set the username field to: %s'%username,
+        negative='Could not set the username field to: %s'%username,
         level='debug')
         
         return result_flag
 
+    @Wrapit._screenshot
     def set_password(self,password):
         "Set the password field"
-        return True 
+        result_flag = self.set_text(self.PASSWORD,password)
+        self.conditional_write(result_flag,
+        positive='Set the password',
+        negative='Could not set the password',
+        level='debug')
 
+        return result_flag
+
+    @Wrapit._screenshot
     def click_submit(self):
         "Click the submit button of the login form"
-        return True 
+        result_flag = self.click_element(self.SUBMIT_BUTTON)
+        self.conditional_write(result_flag,
+        positive='Clicked the submit button',
+        negative='Could not click the submit button',
+        level='debug')
+
+        return result_flag
